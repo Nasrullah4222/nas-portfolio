@@ -1,17 +1,15 @@
 
 server {
-    listen 80;
+    listen ${PORT};
     server_name _;
 
     root /usr/share/nginx/html;
     index index.html;
 
-    # React application routing
     location / {
         try_files $uri $uri/ /index.html;
     }
 
-    # Static assets
     location ~* \.(js|css|png|jpg|jpeg|gif|svg|webp|ico|pdf|woff2?)$ {
         try_files $uri =404;
         expires 7d;
