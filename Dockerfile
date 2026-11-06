@@ -13,13 +13,18 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+
 # ==================================
 # Stage 2: Production Nginx Server
 # ==================================
 
 FROM nginx:alpine AS production
 
-RUN rm /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+ENV NGINX_ENVSUBST_OUTPUT_DIR=/tmp/nginx-conf
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
