@@ -18,11 +18,9 @@ RUN npm run build
 # Stage 2: Production Nginx Server
 # ==================================
 
-FROM nginx:alpine AS production
+FROM nginxinc/nginx-unprivileged:alpine AS production
 
-RUN rm -f /etc/nginx/conf.d/default.conf
-
-ENV NGINX_ENVSUBST_OUTPUT_DIR=/tmp/nginx-conf
+ENV NGINX_ENVSUBST_OUTPUT_DIR=/tmp
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
